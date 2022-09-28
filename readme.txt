@@ -19,8 +19,6 @@ https://www.flutterhub.site/templates/
 --------------------------------------------------------------------------------
 
 [[Source]]
-https://www.manning.com/books/flutter-in-action
-    https://www.manning.com/downloads/1939
-    https://www.manning.com/downloads/2093
+    https://github.com/ericwindmill/flutter_in_action_public
 
 
