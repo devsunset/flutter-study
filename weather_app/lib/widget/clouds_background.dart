@@ -4,13 +4,13 @@ class Clouds extends AnimatedWidget {
   final bool isRaining;
 
   Clouds({
-    Key key,
-    Animation<Color> animation,
+    Key? key,
+    required Animation<Color?> animation,
     this.isRaining = false,
   }) : super(key: key, listenable: animation);
 
   Widget build(BuildContext context) {
-    final Animation<Color> animation = listenable;
+    final Animation<Color> animation = listenable as Animation<Color>;
 
     var screenSize = MediaQuery.of(context).size;
     var _paintBrush = Paint()
@@ -32,8 +32,8 @@ class Clouds extends AnimatedWidget {
 }
 
 class CloudPainter extends CustomPainter {
-  final Paint cloudPaint;
-  final bool isRaining;
+  final Paint? cloudPaint;
+  final bool? isRaining;
 
   CloudPainter({this.cloudPaint, this.isRaining});
 
@@ -55,14 +55,14 @@ class CloudPainter extends CustomPainter {
       Radius.circular(10.0),
     );
 
-    canvas.drawCircle(Offset(figureLeftEdge + 5, 100.0), 50.0, cloudPaint);
-    canvas.drawCircle(Offset(figureCenter, 70.0), 60.0, cloudPaint);
-    canvas.drawCircle(Offset(figureRightEdge, 70.0), 80.0, cloudPaint);
+    canvas.drawCircle(Offset(figureLeftEdge + 5, 100.0), 50.0, cloudPaint!);
+    canvas.drawCircle(Offset(figureCenter, 70.0), 60.0, cloudPaint!);
+    canvas.drawCircle(Offset(figureRightEdge, 70.0), 80.0, cloudPaint!);
 
-    cloudPaint.strokeWidth = 3.0;
-    canvas.drawRRect(cloudBase, cloudPaint);
+    cloudPaint!.strokeWidth = 3.0;
+    canvas.drawRRect(cloudBase, cloudPaint!);
 
-    if (isRaining) {
+    if (isRaining!) {
       var rainDropLength = 75.0;
       var rainDropOffsetXStart = figureLeftEdge;
       var rainDropOffsetXEnd = rainDropOffsetXStart * 0.8;
@@ -78,7 +78,7 @@ class CloudPainter extends CustomPainter {
           rainDropOffsetYStart -= 7.0;
         }
         canvas.drawLine(Offset(rainDropOffsetXStart, rainDropOffsetYStart),
-            Offset(rainDropOffsetXEnd, rainDropOffsetYStart + rainDropLength), cloudPaint);
+            Offset(rainDropOffsetXEnd, rainDropOffsetYStart + rainDropLength), cloudPaint!);
       }
     }
   }

@@ -3,11 +3,11 @@ import 'package:weather_app/models/src/countries.dart';
 import 'package:weather_app/widget/expanded_drop_down.dart';
 
 class CountryDropdownField extends StatelessWidget {
-  final Function onChanged;
-  final Country country;
+  final Function? onChanged;
+  final Country? country;
 
   const CountryDropdownField({
-    Key key,
+    Key? key,
     this.onChanged,
     this.country,
   }) : super(key: key);
@@ -23,7 +23,7 @@ class CountryDropdownField extends StatelessWidget {
           labelText: "Country",
         ),
         value: country ?? Country.AD,
-        onChanged: (Country newSelection) => onChanged(newSelection),
+        onChanged: (Country newSelection) => onChanged!(newSelection),
         items: Country.ALL.map((Country country) {
           return DropdownMenuItem(value: country, child: Text(country.name));
         }).toList(),

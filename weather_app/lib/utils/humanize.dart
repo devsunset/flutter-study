@@ -14,16 +14,16 @@ class Humanize {
   }
 
   static String currentTemperature(TemperatureUnit unit, Weather temp) {
-    var tempInt = temp.temperature.current;
+    var tempInt = temp.temperature!.current;
     if (unit == TemperatureUnit.fahrenheit) {
-      tempInt = Temperature.celsiusToFahrenheit(temp.temperature.current);
+      tempInt = Temperature.celsiusToFahrenheit(temp.temperature!.current!);
     }
     return '$tempInt ${AnimationUtil.temperatureLabels[unit]}';
   }
 
   static String weatherDescription(Weather weather) {
-    var day = DateUtils.weekdays[weather.dateTime.weekday];
-    var description = Weather.displayValues[weather.description];
+    var day = DateUtil.weekdays[weather.dateTime!.weekday];
+    var description = Weather.displayValues[weather.description!]!;
     return "$day. ${description.replaceFirst(description[0], description[0].toUpperCase())}.";
   }
 

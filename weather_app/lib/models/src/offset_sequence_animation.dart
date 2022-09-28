@@ -1,9 +1,9 @@
 import 'dart:ui';
 
 class OffsetSequence {
-  final Offset positionA;
-  final Offset positionB;
-  final Offset positionC;
+  final Offset? positionA;
+  final Offset? positionB;
+  final Offset? positionC;
 
   OffsetSequence({this.positionA, this.positionB, this.positionC});
 

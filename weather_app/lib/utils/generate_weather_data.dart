@@ -10,8 +10,8 @@ import 'package:weather_app/models/src/weather.dart';
 /// creating complex fake data.
 class WeatherDataRepository {
   DateTime _today = DateTime.now().toUtc();
-  DateTime startDateTime;
-  DateTime dailyDate;
+  DateTime? startDateTime;
+  DateTime? dailyDate;
   var _random = math.Random();
   List<City> cities = settings.allAddedCities;
 
@@ -57,9 +57,9 @@ class WeatherDataRepository {
     int runningMax = -555;
 
     for (var i = 0; i < 8; i++) {
-      startDateTime = startDateTime.add(Duration(hours: 3));
+      startDateTime = startDateTime!.add(Duration(hours: 3));
       final temp = _random.nextInt(high);
-      WeatherDescription randomDescription = generateTimeAwareWeatherDescription(startDateTime);
+      WeatherDescription randomDescription = generateTimeAwareWeatherDescription(startDateTime!);
 
       final tempBuilder = Temperature(
         current: temp,
@@ -86,7 +86,7 @@ class WeatherDataRepository {
       max: runningMax,
       date: dailyDate,
     );
-    dailyDate.add(Duration(days: 1));
+    dailyDate!.add(Duration(days: 1));
     return forecastDay;
   }
 

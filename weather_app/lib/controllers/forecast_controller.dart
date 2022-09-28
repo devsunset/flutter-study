@@ -4,9 +4,9 @@ import 'package:weather_app/utils/generate_weather_data.dart';
 
 class ForecastController {
   City _city;
-  Forecast forecast;
-  ForecastDay selectedDay;
-  Weather selectedHourlyTemperature;
+  Forecast? forecast;
+  ForecastDay? selectedDay;
+  late Weather selectedHourlyTemperature;
   DateTime _today = DateTime.now();
   WeatherDataRepository _repository = WeatherDataRepository();
 
@@ -24,7 +24,7 @@ class ForecastController {
   init() {
     forecast = _repository.getTenDayForecast(city);
     selectedDay = Forecast.getSelectedDayForecast(
-      forecast,
+      forecast!,
       DateTime(
         _today.year,
         _today.month,

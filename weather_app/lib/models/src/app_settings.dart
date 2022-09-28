@@ -21,13 +21,13 @@ class AppSettings {
 }
 
 class City {
-  String name;
-  Country country;
-  bool active = false;
+  String? name;
+  Country? country;
+  bool? active = false;
   bool isDefault = false;
-  int listIdx;
+  int? listIdx;
 
-  City({this.name, this.country, this.active, this.listIdx}) {
+  City({required String this.name, this.country, this.active, this.listIdx}) {
     assert(name != null);
     if (listIdx == null) {
       listIdx = allAddedCities.length + 1;

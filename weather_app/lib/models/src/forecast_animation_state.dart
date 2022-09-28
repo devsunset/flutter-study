@@ -4,16 +4,16 @@ import 'package:weather_app/models/src/weather.dart';
 import 'package:weather_app/styles.dart';
 
 class ForecastAnimationState {
-  final Color backgroundColor;
-  final Color sunColor;
-  final Color textColor;
-  final Color cloudColor;
-  final double verticalOffsetPosition;
-  final double cloudHorizontalOffsetPosition;
+  final Color? backgroundColor;
+  final Color? sunColor;
+  final Color? textColor;
+  final Color? cloudColor;
+  final double? verticalOffsetPosition;
+  final double? cloudHorizontalOffsetPosition;
 
-  Offset get sunOffsetPosition => Offset(0.0, verticalOffsetPosition);
+  Offset get sunOffsetPosition => Offset(0.0, verticalOffsetPosition!);
   Offset get cloudOffsetPosition =>
-      Offset(cloudHorizontalOffsetPosition, verticalOffsetPosition + 0.5);
+      Offset(cloudHorizontalOffsetPosition!, verticalOffsetPosition! + 0.5);
 
   ForecastAnimationState({
     this.backgroundColor,
@@ -24,7 +24,7 @@ class ForecastAnimationState {
     this.cloudHorizontalOffsetPosition,
   });
 
-  factory ForecastAnimationState.stateForNextSelection(int hour, WeatherDescription condition) {
+  factory ForecastAnimationState.stateForNextSelection(int hour, WeatherDescription? condition) {
     var roundedInt = (3 * (hour / 3)).round();
     assert(roundedInt % 3 == 0);
 

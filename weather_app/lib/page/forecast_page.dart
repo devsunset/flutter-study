@@ -16,40 +16,41 @@ import 'package:weather_app/widget/time_picker_row.dart';
 import 'package:weather_app/widget/transition_appbar.dart';
 
 class ForecastPage extends StatefulWidget {
-  final PopupMenuButton menu;
-  final Widget settingsButton;
-  final AppSettings settings;
+  final PopupMenuButton? menu;
+  final Widget? settingsButton;
+  final AppSettings? settings;
 
   const ForecastPage({
-    Key key,
+    Key? key,
     this.menu,
     this.settingsButton,
-    @required this.settings,
+    required this.settings,
   }) : super(key: key);
 
   @override
   _ForecastPageState createState() => _ForecastPageState();
 }
 
-class _ForecastPageState extends State<ForecastPage> with TickerProviderStateMixin {
+class _ForecastPageState extends State<ForecastPage>
+    with TickerProviderStateMixin {
   int activeTabIndex = 0;
-  ForecastController _forecastController;
-  AnimationController _animationController;
-  AnimationController _weatherConditionAnimationController;
-  ColorTween _colorTween;
-  ColorTween _backgroundColorTween;
-  ColorTween _textColorTween;
-  ColorTween _cloudColorTween;
-  Tween<Offset> _positionOffsetTween;
-  TweenSequence<Offset> _cloudPositionOffsetTween;
-  ForecastAnimationState currentAnimationState;
-  ForecastAnimationState nextAnimationState;
-  Offset verticalDragStart;
+  ForecastController? _forecastController;
+  AnimationController? _animationController;
+  AnimationController? _weatherConditionAnimationController;
+  late ColorTween _colorTween;
+  late ColorTween _backgroundColorTween;
+  ColorTween? _textColorTween;
+  late ColorTween _cloudColorTween;
+  late Tween<Offset> _positionOffsetTween;
+  late TweenSequence<Offset> _cloudPositionOffsetTween;
+  ForecastAnimationState? currentAnimationState;
+  ForecastAnimationState? nextAnimationState;
+  Offset? verticalDragStart;
 
   @override
   void initState() {
     super.initState();
-    _forecastController = ForecastController(widget.settings.activeCity);
+    _forecastController = ForecastController(widget.settings!.activeCity);
     _render();
   }
 
@@ -67,10 +68,10 @@ class _ForecastPageState extends State<ForecastPage> with TickerProviderStateMix
   }
 
   void _render() {
-    _forecastController.city = widget.settings.activeCity;
-    var startTime = _forecastController.selectedHourlyTemperature.dateTime.hour;
+    _forecastController!.city = widget.settings!.activeCity;
+    var startTime = _forecastController!.selectedHourlyTemperature.dateTime!.hour;
     currentAnimationState = AnimationUtil.getDataForNextAnimationState(
-      selectedDay: _forecastController.selectedDay,
+      selectedDay: _forecastController!.selectedDay,
       currentlySelectedTimeOfDay: startTime,
     );
     final activeTabIndex = AnimationUtil.hours.indexOf(startTime);
@@ -85,8 +86,9 @@ class _ForecastPageState extends State<ForecastPage> with TickerProviderStateMix
     /// for the next animation that fires. (It will also become the
     /// starting values for the _next_ animation cycle.)
     nextAnimationState = AnimationUtil.getDataForNextAnimationState(
-      selectedDay: _forecastController.selectedDay,
-      currentlySelectedTimeOfDay: _forecastController.selectedHourlyTemperature.dateTime.hour,
+      selectedDay: _forecastController!.selectedDay,
+      currentlySelectedTimeOfDay:
+          _forecastController!.selectedHourlyTemperature.dateTime!.hour,
     );
 
     /// These methods build all the relevant objects
@@ -103,15 +105,16 @@ class _ForecastPageState extends State<ForecastPage> with TickerProviderStateMix
 
     var nextSelectedHour = AnimationUtil.getSelectedHourFromTabIndex(
       activeIndex,
-      _forecastController.selectedDay,
+      _forecastController!.selectedDay!,
     );
 
     /// set the selectedHourlyTemperature on the controller
     /// with the data from the _new_ values.
     /// This way, the data for the _next_ animation cycle
     /// is already loaded in.
-    _forecastController.selectedHourlyTemperature = ForecastDay.getWeatherForHour(
-      _forecastController.selectedDay,
+    _forecastController!.selectedHourlyTemperature =
+        ForecastDay.getWeatherForHour(
+      _forecastController!.selectedDay,
       nextSelectedHour,
     );
     currentAnimationState = nextAnimationState;
@@ -127,8 +130,8 @@ class _ForecastPageState extends State<ForecastPage> with TickerProviderStateMix
   }
 
   void _initAnimation() {
-    _animationController.forward();
-    _weatherConditionAnimationController.forward();
+    _animationController!.forward();
+    _weatherConditionAnimationController!.forward();
   }
 
   void _buildAnimationController() {
@@ -146,29 +149,29 @@ class _ForecastPageState extends State<ForecastPage> with TickerProviderStateMix
 
   void _buildTweens() {
     _colorTween = ColorTween(
-      begin: currentAnimationState.sunColor,
-      end: nextAnimationState.sunColor,
+      begin: currentAnimationState!.sunColor,
+      end: nextAnimationState!.sunColor,
     );
     _backgroundColorTween = ColorTween(
-      begin: currentAnimationState.backgroundColor,
-      end: nextAnimationState.backgroundColor,
+      begin: currentAnimationState!.backgroundColor,
+      end: nextAnimationState!.backgroundColor,
     );
     _textColorTween = ColorTween(
-      begin: currentAnimationState.textColor,
-      end: nextAnimationState.textColor,
+      begin: currentAnimationState!.textColor,
+      end: nextAnimationState!.textColor,
     );
     _cloudColorTween = ColorTween(
-      begin: currentAnimationState.cloudColor,
-      end: nextAnimationState.cloudColor,
+      begin: currentAnimationState!.cloudColor,
+      end: nextAnimationState!.cloudColor,
     );
     _positionOffsetTween = Tween<Offset>(
-      begin: currentAnimationState.sunOffsetPosition,
-      end: nextAnimationState.sunOffsetPosition,
+      begin: currentAnimationState!.sunOffsetPosition,
+      end: nextAnimationState!.sunOffsetPosition,
     );
 
     var cloudOffsetSequence = OffsetSequence.fromBeginAndEndPositions(
-      currentAnimationState.cloudOffsetPosition,
-      nextAnimationState.cloudOffsetPosition,
+      currentAnimationState!.cloudOffsetPosition,
+      nextAnimationState!.cloudOffsetPosition,
     );
     _cloudPositionOffsetTween = TweenSequence<Offset>(
       <TweenSequenceItem<Offset>>[
@@ -193,19 +196,20 @@ class _ForecastPageState extends State<ForecastPage> with TickerProviderStateMix
   @override
   Widget build(BuildContext context) {
     final _currentTemp = Humanize.currentTemperature(
-      widget.settings.selectedTemperature,
-      _forecastController.selectedHourlyTemperature,
+      widget.settings!.selectedTemperature,
+      _forecastController!.selectedHourlyTemperature,
     );
-    final _weatherDescription =
-        Humanize.weatherDescription(_forecastController.selectedHourlyTemperature);
+    final _weatherDescription = Humanize.weatherDescription(
+        _forecastController!.selectedHourlyTemperature);
     final isRaining =
-        _forecastController.selectedHourlyTemperature.description == WeatherDescription.rain;
+        _forecastController!.selectedHourlyTemperature.description ==
+            WeatherDescription.rain;
 
     final forecastContent = ForecastTableView(
       settings: widget.settings,
       controller: _animationController,
       textColorTween: _textColorTween,
-      forecast: _forecastController.forecast,
+      forecast: _forecastController!.forecast,
     );
 
     final mainContent = Padding(
@@ -214,13 +218,13 @@ class _ForecastPageState extends State<ForecastPage> with TickerProviderStateMix
         children: <Widget>[
           ColorTransitionText(
             text: _weatherDescription,
-            style: Theme.of(context).textTheme.headline,
-            animation: _textColorTween.animate(_animationController),
+            style: Theme.of(context).textTheme.headline1,
+            animation: _textColorTween!.animate(_animationController!),
           ),
           ColorTransitionText(
             text: _currentTemp,
-            style: Theme.of(context).textTheme.display3,
-            animation: _textColorTween.animate(_animationController),
+            style: Theme.of(context).textTheme.displaySmall,
+            animation: _textColorTween!.animate(_animationController!),
           ),
         ],
       ),
@@ -229,7 +233,8 @@ class _ForecastPageState extends State<ForecastPage> with TickerProviderStateMix
     final timePickerRow = TimePickerRow(
       tabItems: Humanize.allHours(),
       forecastController: _forecastController,
-      onTabChange: (int selectedTabIndex) => _handleStateChange(selectedTabIndex),
+      onTabChange: (int selectedTabIndex) =>
+          _handleStateChange(selectedTabIndex),
       startIndex: activeTabIndex,
     );
 
@@ -237,11 +242,11 @@ class _ForecastPageState extends State<ForecastPage> with TickerProviderStateMix
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(ui.appBarHeight(context)),
         child: TransitionAppbar(
-          animation: _backgroundColorTween.animate(_animationController),
+          animation: _backgroundColorTween.animate(_animationController!),
           title: ColorTransitionText(
-            text: _forecastController.selectedHourlyTemperature.city.name,
-            style: Theme.of(context).textTheme.headline,
-            animation: _textColorTween.animate(_animationController),
+            text: _forecastController!.selectedHourlyTemperature.city!.name,
+            style: Theme.of(context).textTheme.headline1,
+            animation: _textColorTween!.animate(_animationController!),
           ),
           actionIcon: widget.settingsButton,
           leadingAction: widget.menu,
@@ -250,39 +255,40 @@ class _ForecastPageState extends State<ForecastPage> with TickerProviderStateMix
       body: GestureDetector(
         onDoubleTap: () {
           setState(() {
-            widget.settings.selectedTemperature == TemperatureUnit.celsius
-                ? widget.settings.selectedTemperature = TemperatureUnit.fahrenheit
-                : widget.settings.selectedTemperature = TemperatureUnit.celsius;
+            widget.settings!.selectedTemperature == TemperatureUnit.celsius
+                ? widget.settings!.selectedTemperature =
+                    TemperatureUnit.fahrenheit
+                : widget.settings!.selectedTemperature = TemperatureUnit.celsius;
           });
         },
         onVerticalDragUpdate: (DragUpdateDetails details) {
           _handleDragEnd(details, context);
         },
         child: ColorTransitionBox(
-          animation: _backgroundColorTween.animate(_animationController),
+          animation: _backgroundColorTween.animate(_animationController!),
           child: Padding(
             padding: EdgeInsets.symmetric(vertical: 32.0),
             child: Stack(
               children: <Widget>[
                 SlideTransition(
                   position: _positionOffsetTween.animate(
-                    _animationController.drive(
+                    _animationController!.drive(
                       CurveTween(curve: Curves.bounceOut),
                     ),
                   ),
                   child: Sun(
-                    animation: _colorTween.animate(_animationController),
+                    animation: _colorTween.animate(_animationController!),
                   ),
                 ),
                 SlideTransition(
                   position: _cloudPositionOffsetTween.animate(
-                    _weatherConditionAnimationController.drive(
+                    _weatherConditionAnimationController!.drive(
                       CurveTween(curve: Curves.bounceOut),
                     ),
                   ),
                   child: Clouds(
                     isRaining: isRaining,
-                    animation: _cloudColorTween.animate(_animationController),
+                    animation: _cloudColorTween.animate(_animationController!),
                   ),
                 ),
                 Column(

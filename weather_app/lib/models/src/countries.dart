@@ -8,8 +8,8 @@ class Country {
   final String name;
 
   const Country({
-    @required this.dialingCode,
-    @required this.isoCode,
+    required this.dialingCode,
+    required this.isoCode,
     this.name = "",
   });
 
@@ -1537,9 +1537,9 @@ class Country {
 
   /// Creates a copy with modified values
   Country copyWith({
-    String name,
-    String isoCode,
-    String dialingCode,
+    String? name,
+    String? isoCode,
+    String? dialingCode,
   }) {
     return Country(
       name: name ?? this.name,

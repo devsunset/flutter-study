@@ -19,8 +19,8 @@ class AnimationUtil {
   };
 
   static ForecastAnimationState getDataForNextAnimationState({
-    ForecastDay selectedDay,
-    int currentlySelectedTimeOfDay, // [3, 6, 9, 12, 15, 18, 21, 24 ]
+    ForecastDay? selectedDay,
+    int? currentlySelectedTimeOfDay, // [3, 6, 9, 12, 15, 18, 21, 24 ]
   }) {
     final newSelection = ForecastDay.getWeatherForHour(
       selectedDay,
@@ -28,7 +28,7 @@ class AnimationUtil {
     );
 
     final endAnimationState = ForecastAnimationState.stateForNextSelection(
-      newSelection.dateTime.hour,
+      newSelection.dateTime!.hour,
       newSelection.description,
     );
 
@@ -36,6 +36,6 @@ class AnimationUtil {
   }
 
   static int getSelectedHourFromTabIndex(int index, ForecastDay selectedDay) {
-    return selectedDay.hourlyWeather[index].dateTime.hour;
+    return selectedDay.hourlyWeather![index].dateTime!.hour;
   }
 }

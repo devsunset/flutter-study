@@ -7,9 +7,9 @@ import 'package:weather_app/utils/humanize.dart';
 import 'package:weather_app/widget/segmented_control.dart';
 
 class SettingsPage extends StatefulWidget {
-  final AppSettings settings;
+  final AppSettings? settings;
 
-  const SettingsPage({Key key, this.settings}) : super(key: key);
+  const SettingsPage({Key? key, this.settings}) : super(key: key);
 
   @override
   SettingsPageState createState() {
@@ -20,7 +20,7 @@ class SettingsPage extends StatefulWidget {
 class SettingsPageState extends State<SettingsPage> {
   List<String> get temperatureOptions => Humanize.enumValues(TemperatureUnit.values);
 
-  void _handleCityActiveChange(bool b, City city) {
+  void _handleCityActiveChange(bool? b, City city) {
     setState(() {
       city.active = b;
     });
@@ -28,15 +28,15 @@ class SettingsPageState extends State<SettingsPage> {
 
   void _handleTemperatureUnitChange(int selection) {
     setState(() {
-      widget.settings.selectedTemperature = TemperatureUnit.values.toList()[selection];
+      widget.settings!.selectedTemperature = TemperatureUnit.values.toList()[selection];
     });
   }
 
   void _handleDismiss(DismissDirection dir, City removedCity) {
     if (dir == DismissDirection.endToStart) {
       allAddedCities.removeWhere((city) => city == removedCity);
-      if (widget.settings.activeCity == removedCity) {
-        widget.settings.activeCity = allAddedCities.firstWhere((city) => city.active);
+      if (widget.settings!.activeCity == removedCity) {
+        widget.settings!.activeCity = allAddedCities.firstWhere((city) => city.active!);
       }
     }
   }
@@ -95,8 +95,8 @@ class SettingsPageState extends State<SettingsPage> {
                     key: ValueKey(city),
                     child: CheckboxListTile(
                       value: city.active,
-                      title: Text(city.name),
-                      onChanged: (bool b) => _handleCityActiveChange(b, city),
+                      title: Text(city.name!),
+                      onChanged: (bool? b) => _handleCityActiveChange(b, city),
                     ),
                   );
                 },

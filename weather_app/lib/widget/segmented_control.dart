@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class SegmentedControl extends StatefulWidget {
-  final Key key;
+  final Key? key;
   final List<String> segments;
   final onSelectionChanged;
   final bool editable;
@@ -21,14 +21,14 @@ class SegmentedControl extends StatefulWidget {
 
 class _SegmentedControlState extends State<SegmentedControl> {
   _SegmentedControlState();
-  int selectedIndex;
+  int? selectedIndex;
 
   handleSelect(int widgetNum) {
     setState(() => selectedIndex = widgetNum);
     widget.onSelectionChanged(widgetNum);
   }
 
-  Color isEditable() {
+  Color? isEditable() {
     if (widget.editable) {
       return Theme.of(context).primaryColor;
     } else {
@@ -42,7 +42,7 @@ class _SegmentedControlState extends State<SegmentedControl> {
     }
     var lastSegment = widget.segments?.last;
     if (lastSegment == null) return [];
-    List<Color> childBorders = [];
+    List<Color?> childBorders = [];
 
     var selectedIndex = this.selectedIndex ?? widget.initialSelectionIndex;
 
@@ -66,7 +66,7 @@ class _SegmentedControlState extends State<SegmentedControl> {
                 color:
                     selectedIndex == widget.segments.indexOf(segment) ? isEditable() : Colors.white,
                 border: Border(
-                    right: BorderSide(color: childBorders[idx]) // hide right border on last child
+                    right: BorderSide(color: childBorders[idx]!) // hide right border on last child
                     ),
               ),
               child: Text(
@@ -94,7 +94,7 @@ class _SegmentedControlState extends State<SegmentedControl> {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 5.0),
       decoration: BoxDecoration(
-        border: Border.all(color: isEditable(), width: 1.3),
+        border: Border.all(color: isEditable()!, width: 1.3),
         borderRadius: BorderRadius.all(const Radius.circular(3.5)),
       ),
       child: Row(
