@@ -8,11 +8,17 @@
 [[Flutter]]
 https://flutter.dev/
 
-https://flutter-ko.dev/docs/cookbook/navigation/navigation-basics
+https://flutter-ko.dev/docs/get-started/install
 
 https://docs.flutter.dev/
 
 https://docs.flutter.dev/development/ui/widgets
+
+https://api.flutter.dev/flutter/widgets/widgets-library.html
+
+https://api.flutter.dev/
+
+https://pub.dev/packages?q=sdk%3Aflutter
 
 https://gallery.flutter.dev/#/
 
@@ -28,7 +34,6 @@ https://dart.dev/null-safety/migration-guide
 
 https://www.youtube.com/flutterdev
 
-https://codemagic.io/start/
 
 --------------------------------------------------------------------------------
 
