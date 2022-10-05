@@ -20,19 +20,38 @@ https://api.flutter.dev/
 
 https://pub.dev/packages?q=sdk%3Aflutter
 
-https://gallery.flutter.dev/#/
+https://www.flutterhub.site/templates/
+
+https://www.youtube.com/flutterdev
+
+https://flutterstudio.app/
+
+https://widget.studio/#/
+
+https://flutterawesome.com/
+
+http://bestflutterapps.com/
+
+https://www.fluttertemplates.dev/
+
+https://x-wei.github.io/flutter_catalog/#/
+
+https://startflutter.com/
+
+https://www.getwidget.dev/
+
+https://www.fluttercampus.com/#gsc.tab=0
 
 https://flutter.github.io/samples/#
 
 http://fluttersamples.com/
 
-https://flutterawesome.com/tag/templates/
-
-https://www.flutterhub.site/templates/
+https://gallery.flutter.dev/#/
 
 https://dart.dev/null-safety/migration-guide
 
-https://www.youtube.com/flutterdev
+https://codemagic.io/start/
+
 
 
 --------------------------------------------------------------------------------
